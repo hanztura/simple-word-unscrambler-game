@@ -1,3 +1,4 @@
+# test OKAY
 from common import read_file, pick_words
 
 filename = str(input())
