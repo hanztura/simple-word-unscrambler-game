@@ -4,7 +4,7 @@
     Game, where the player (the user), will gain points by unscrambling a set
     of letters to get certain words.
 
-##Documentation
+## Documentation
 
     * Engine - engine.py
     * Interface - interface.py
