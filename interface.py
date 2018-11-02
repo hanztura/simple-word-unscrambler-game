@@ -1,5 +1,7 @@
+from common import get_random_numbers
 from config import (
-    DICTIONARY_FILENAME, GAME_MODES, NUMBER_OF_RETRIES, SCORING_MATRIX
+    DICTIONARY_FILENAME, GAME_MODES, NUMBER_OF_RETRIES, SCORING_MATRIX,
+    NUMBER_OF_RANDOM_WORDS
 )
 from engine import (
     seed_words, pick_words, combine_words, check_words, compute_word_score
@@ -7,6 +9,7 @@ from engine import (
 
 # seed dictionary
 dictionary = seed_words(DICTIONARY_FILENAME)
+dictionary_max_index = len(dictionary) - 1
 
 game_mode = ''
 game_mode_keys = GAME_MODES.keys()
@@ -35,7 +38,12 @@ else:
     while is_continue:
         if game_mode == 'retry':
             # get a scrambled letter
-            random_words = pick_words('14 30', dictionary)
+            random_numbers = get_random_numbers(
+                NUMBER_OF_RANDOM_WORDS,
+                dictionary_max_index,
+                True
+            )
+            random_words = pick_words(random_numbers, dictionary)
             scrambled_letters = combine_words(random_words)
 
             # present to player to the scrambled letter
@@ -83,4 +91,4 @@ else:
         score = compute_word_score(user_answer, SCORING_MATRIX)
         total_score = total_score + score
 
-    print(total_score)
+    print('Total Score: {}'.format(total_score))

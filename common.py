@@ -1,3 +1,6 @@
+from random import randint
+
+
 def read_file(filename):
     with open(filename) as f:
         file = f.read()
@@ -5,14 +8,14 @@ def read_file(filename):
     return file
 
 
-def pick_words(word_positions, dictionary):
-    array_word_positions = [int(word_positions) for word_positions in word_positions.split()]
+def get_random_numbers(count, max_num, to_string=False):
+    random_numbers = []
+    for i in range(count):
+        random_number = randint(0, max_num)
+        random_numbers.append(random_number)
 
-    words = ''
-    for j in range(len(array_word_positions)):
-        if words != '':
-            words += " " + str(dictionary[array_word_positions[j]])
-        else:
-            words += str(dictionary[array_word_positions[j]])
+    if to_string:
+        # https://stackoverflow.com/questions/44778/how-would-you-make-a-comma-separated-string-from-a-list-of-strings
+        random_numbers = ' '.join(map(str, random_numbers))
 
-    return words
+    return random_numbers
