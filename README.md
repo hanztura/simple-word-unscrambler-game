@@ -4,12 +4,15 @@
     Game, where the player (the user), will gain points by unscrambling a set
     of letters to get certain words.
 
+## How to play the game?
+    > Just run main.py
+
 ## Documentation
 
     * Engine - engine.py
     * Interface - interface.py
     * Main - main.py
-    
+    * Configuration - config.py
 
 ## Clone repo from github
 
@@ -22,7 +25,7 @@
 
 ## Update repo using git
 
-    > assuming we are saved the repo in directory Downloads
+    > assuming we saved the repo in directory Downloads
 
     ```bash
     cd Downloads/simple-word-unscrambler-game
