@@ -4,9 +4,9 @@
     of letters to get certain words.
 
 ##Documentation
-    ### Engine - engine.py
-    ### Interface - interface.py
-    ### Main - main.py
+    * Engine - engine.py
+    * Interface - interface.py
+    * Main - main.py
     
 
 ## Clone repo from github
