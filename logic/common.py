@@ -122,3 +122,12 @@ def check_words(user_input, dictionary):
         result2 = True
 
     return (result1 and result2)
+
+
+def compute_word_score(word, scoring_matrix):
+    total_score = 0
+    for letter in word:
+        score = scoring_matrix[letter]
+        total_score = total_score + score
+
+    return total_score
