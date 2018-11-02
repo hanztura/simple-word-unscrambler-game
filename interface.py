@@ -13,6 +13,10 @@ dictionary_max_index = len(dictionary) - 1
 
 
 def print_game_results(valid_answers, invalid_answers):
+    """
+    Print game results. Both valid_answers and invalid answers are
+    presumed to be in list data type.
+    """
     # on game over, print results
     total_score = 0
     for answer_data in valid_answers:
@@ -24,6 +28,11 @@ def print_game_results(valid_answers, invalid_answers):
 
 
 def mode_retry():
+    """
+    Call this when the user selects the Retry Game mode.
+    After the game is over, this function will return valid answers,
+    and invalid answers wrapped as a dictionary data type.
+    """
     is_continue = True
     invalid_answers = []
     valid_answers = []
@@ -79,6 +88,10 @@ def mode_retry():
 
 
 def go():
+    """
+    This is the entry point of the game. This should be called to start
+    the game.
+    """
     results = {}
     game_mode = ''
     game_mode_keys = GAME_MODES.keys()
