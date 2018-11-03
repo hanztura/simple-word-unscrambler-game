@@ -3,6 +3,9 @@ from config import BCOLORS
 
 
 def read_file(filename):
+    """
+    Read a given filename and returns it as a string.
+    """
     with open(filename) as f:
         file = f.read()
 
@@ -10,6 +13,13 @@ def read_file(filename):
 
 
 def get_random_numbers(count, max_num, to_string=False):
+    """
+    Returns a random number(s).By default it returns the numbers in array
+    but setting to_string into True with return it as space separated string.
+
+    count determines the number of random numbers to be generated.
+    max_num determines the maximum number allowed in generating random number.
+    """
     random_numbers = []
     for i in range(count):
         random_number = randint(0, max_num)
@@ -23,6 +33,9 @@ def get_random_numbers(count, max_num, to_string=False):
 
 
 def print_with_color(color, message):
+    """
+    Print a message with a color.
+    """
     colors = {
         'green': BCOLORS.OKGREEN,
         'blue': BCOLORS.OKBLUE,

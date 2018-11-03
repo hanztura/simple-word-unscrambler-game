@@ -37,6 +37,7 @@ class GAME_MODES(Enum):
         return [mode.value[0] for mode in cls]
 
 
+# https://stackoverflow.com/questions/287871/print-in-terminal-with-colors
 class BCOLORS:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
