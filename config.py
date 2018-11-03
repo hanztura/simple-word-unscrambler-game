@@ -13,8 +13,11 @@ SCORING_MATRIX = {"a": 1, "b": 3, "c": 3, "d": 2, "e": 1, "f": 4,
 
 class GAME_MODES(Enum):
     retry = ('retry', 'Try and Try until you die.')
+    retry_anagram = (
+        'retry_anagram',
+        'Try and Try until you die AGAIN.'
+    )
     timed = ('timed', 'Time is Gold.')
-    hybrid = ('hybrid', 'You can TRY, but not all the TIME.')
     exit = ('exit', 'I dont want to play games right now.')
 
     @classmethod
@@ -32,3 +35,14 @@ class GAME_MODES(Enum):
     @classmethod
     def keys(cls):
         return [mode.value[0] for mode in cls]
+
+
+class BCOLORS:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
