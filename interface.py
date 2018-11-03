@@ -1,3 +1,5 @@
+from random import shuffle
+
 from common import get_random_numbers, print_with_color
 from config import (
     DICTIONARY_FILENAME, GAME_MODES, NUMBER_OF_RETRIES, SCORING_MATRIX,
@@ -46,10 +48,13 @@ def mode_retry():
             )
             random_words = pick_words(random_numbers, dictionary)
             scrambled_letters = combine_words(random_words)
+            shuffled_scrambled_letters = list(scrambled_letters)
+            shuffle(shuffled_scrambled_letters)
+            shuffled_scrambled_letters = ''.join(shuffled_scrambled_letters)
 
             # present to player to the scrambled letter
             print('Create a valid word out of these letters: {}'.format(
-                scrambled_letters)
+                shuffled_scrambled_letters)
             )
 
             # get user answer. blank is not allowed
