@@ -1,5 +1,13 @@
+import os
+from collections import Counter
 from random import randint
+
 from config import BCOLORS
+
+
+def get_terminal_width():
+    width = os.get_terminal_size().columns
+    return width
 
 
 def read_file(filename):
@@ -32,7 +40,7 @@ def get_random_numbers(count, max_num, to_string=False):
     return random_numbers
 
 
-def print_with_color(color, message):
+def print_with_color(color, message, center=False, width=0):
     """
     Print a message with a color.
     """
@@ -47,8 +55,67 @@ def print_with_color(color, message):
     else:
         color = colors['blue']
 
-    print('{}{}{}'.format(
+    formatted_message = '{}{}{}'.format(
         color,
         message,
         BCOLORS.ENDC
-    ))
+    )
+
+    if center:
+        if not width:
+            width = get_terminal_width()
+
+        formatted_message = formatted_message.center(width)
+
+    print(formatted_message)
+
+
+def print_divider(width, character='-'):
+    divider = character * width
+    print(divider)
+
+
+def print_on_center(message, width):
+    centered_message = message.center(width)
+    print(centered_message)
+
+
+def print_on_left_and_right(left_message, right_message, width):
+    width_per_side = int(width / 2)
+    left_message = '{message:{filler}<{n}}'.format(
+        message=left_message,
+        n=width_per_side,
+        filler=''
+    )
+    right_message = '{message:{filler}>{n}}'.format(
+        message=right_message,
+        n=width_per_side,
+        filler=''
+    )
+    print('{}{}'.format(left_message, right_message))
+
+
+def filter_dictionary(dictionary, min_length, max_length):
+    dictionary = [word for word in dictionary if len(word) >= min_length and len(word) <= max_length]
+    return dictionary
+
+
+def sort_letters(word, return_as_string=True):
+    sorted_letters = sorted(word)
+    if return_as_string:
+        sorted_letters = ''.join(sorted_letters)
+    return sorted_letters
+
+
+def is_a_sub_anagram(word, base_word):
+    # direct substring
+    if word in base_word:
+        return True
+
+    word_letters_count = Counter(word)
+    is_a_sub_anagram = True
+    for i, (letter, count) in enumerate(word_letters_count.items()):
+        if base_word.count(letter) < count:
+            is_a_sub_anagram = False
+
+    return is_a_sub_anagram

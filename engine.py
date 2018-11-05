@@ -1,4 +1,4 @@
-from common import read_file
+from common import read_file, is_a_sub_anagram
 
 
 def seed_words(filename):
@@ -42,6 +42,7 @@ def search_anagrams(word, dictionary):
     anagrams of the word.
     """
     sorted_array_word_string = (sorted(list(word)))
+    dictionary = [word for word in dictionary if len(word) == len(word)]
 
     anagrams = ''
     for j in dictionary:
@@ -53,6 +54,77 @@ def search_anagrams(word, dictionary):
             else:
                 anagrams += str(j)
 
+    return anagrams
+
+
+def search_anagrams_of_words(words, dictionary):
+    """
+    Returns a list of unique words by getting the anagrams of each word in
+    words.
+
+    words is an array of words.
+    dictionary is an array of words in the dictionary.
+    """
+    anagrams_of_words = []
+    for word in words:
+            anagrams = search_anagrams(word, dictionary)
+            anagrams = anagrams.split()
+            anagrams_of_words = anagrams_of_words + anagrams
+
+    anagrams_of_words = list(set(anagrams_of_words))
+    return anagrams_of_words
+
+
+def search_sub_anagrams_of_a_word(word, dictionary, limit=2):
+    """
+    Same with normal search of anagram but it includes all sub anagrams of a
+    word with a length at least of the limit.
+
+    Returns a space separated string of anagrams.
+    """
+    if len(word) <= limit:
+        return ''
+    else:
+        return search_anagrams(word, dictionary) + ' ' + search_sub_anagrams_of_a_word(
+            word[0:-1],
+            dictionary
+        )
+
+
+def search_sub_anagrams_of_a_word_2(word, dictionary, limit=2):
+    word_length = len(word)
+    anagrams = ''
+    if word_length <= limit:
+        return ''
+    else:
+        # filter dictionary with length not more than its own length
+        # sample great has length of 5 so dictionary words 6 and above not ignored
+        dictionary = [d_word for d_word in dictionary if len(d_word) <= word_length]
+        for d_word in dictionary:
+            if is_a_sub_anagram(d_word, word):
+                anagrams += ' '
+                anagrams += d_word
+
+    return anagrams
+
+
+def search_sub_anagrams_of_words(words, dictionary):
+    """
+    Utitlity of sub anagram of word where it searches the sub anagrams of one
+    or more words (list).
+
+    Returns a list of sub anagrams.
+    """
+    anagrams = ''
+    anagrams += ' ' + words
+    combined_words = combine_words(words)
+    anagrams = anagrams + ' ' + search_sub_anagrams_of_a_word_2(
+        combined_words,
+        dictionary
+    )
+
+    anagrams = anagrams.split()
+    anagrams = list(set(anagrams))
     return anagrams
 
 
@@ -185,6 +257,16 @@ def compute_word_score(word, scoring_matrix):
     total_score = 0
     for letter in word:
         score = scoring_matrix[letter]
+        total_score = total_score + score
+
+    return total_score
+
+
+def compute_score(words, scoring_matrix):
+    total_score = 0
+
+    for word in words:
+        score = compute_word_score(word, scoring_matrix)
         total_score = total_score + score
 
     return total_score

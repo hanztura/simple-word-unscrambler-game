@@ -1,9 +1,10 @@
 # configurations of the game
 from enum import Enum
 
+APP_NAME = 'Word Unscrambler Game'
 DICTIONARY_FILENAME = 'dictionary.txt'
 NUMBER_OF_RETRIES = 5
-NUMBER_OF_RANDOM_WORDS = 3
+NUMBER_OF_RANDOM_WORDS = 2
 SCORING_MATRIX = {"a": 1, "b": 3, "c": 3, "d": 2, "e": 1, "f": 4,
                   "g": 2, "h": 4, "i": 1, "j": 8, "k": 5, "l": 1,
                   "m": 3, "n": 1, "o": 1, "p": 3, "q": 10, "r": 1,
@@ -12,12 +13,11 @@ SCORING_MATRIX = {"a": 1, "b": 3, "c": 3, "d": 2, "e": 1, "f": 4,
 
 
 class GAME_MODES(Enum):
-    retry = ('retry', 'Try and Try until you die.')
+    retry = ('retry', 'Normal Mode')
     retry_anagram = (
         'retry_anagram',
-        'Try and Try until you die AGAIN.'
+        'Anagram Mode'
     )
-    timed = ('timed', 'Time is Gold.')
     exit = ('exit', 'I dont want to play games right now.')
 
     @classmethod
