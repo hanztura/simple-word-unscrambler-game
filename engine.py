@@ -75,6 +75,22 @@ def search_anagrams_of_words(words, dictionary):
     return anagrams_of_words
 
 
+# def search_sub_anagrams_of_a_word_2(word, dictionary, limit=2):
+#     """
+#     Same with normal search of anagram but it includes all sub anagrams of a
+#     word with a length at least of the limit.
+
+#     Returns a space separated string of anagrams.
+#     """
+#     if len(word) <= limit:
+#         return ''
+#     else:
+#         return search_anagrams(word, dictionary) + ' ' + search_sub_anagrams_of_a_word(
+#             word[0:-1],
+#             dictionary
+#         )
+
+
 def search_sub_anagrams_of_a_word(word, dictionary, limit=2):
     """
     Same with normal search of anagram but it includes all sub anagrams of a
@@ -82,16 +98,6 @@ def search_sub_anagrams_of_a_word(word, dictionary, limit=2):
 
     Returns a space separated string of anagrams.
     """
-    if len(word) <= limit:
-        return ''
-    else:
-        return search_anagrams(word, dictionary) + ' ' + search_sub_anagrams_of_a_word(
-            word[0:-1],
-            dictionary
-        )
-
-
-def search_sub_anagrams_of_a_word_2(word, dictionary, limit=2):
     word_length = len(word)
     anagrams = ''
     if word_length <= limit:
@@ -118,7 +124,7 @@ def search_sub_anagrams_of_words(words, dictionary):
     anagrams = ''
     anagrams += ' ' + words
     combined_words = combine_words(words)
-    anagrams = anagrams + ' ' + search_sub_anagrams_of_a_word_2(
+    anagrams = anagrams + ' ' + search_sub_anagrams_of_a_word(
         combined_words,
         dictionary
     )
@@ -263,6 +269,10 @@ def compute_word_score(word, scoring_matrix):
 
 
 def compute_score(words, scoring_matrix):
+    """
+    Utility of compute word score where it computes the total score of a given
+    list of words.
+    """
     total_score = 0
 
     for word in words:

@@ -6,6 +6,9 @@ from config import BCOLORS
 
 
 def get_terminal_width():
+    """
+    Get terminal width.
+    """
     width = os.get_terminal_size().columns
     return width
 
@@ -40,9 +43,17 @@ def get_random_numbers(count, max_num, to_string=False):
     return random_numbers
 
 
+def print_on_center(message, width):
+    """
+    Print a message (string) center aligned.
+    """
+    centered_message = message.center(width)
+    print(centered_message)
+
+
 def print_with_color(color, message, center=False, width=0):
     """
-    Print a message with a color.
+    Print a message with a color. Can opt to print in Center.
     """
     colors = {
         'green': BCOLORS.OKGREEN,
@@ -65,22 +76,23 @@ def print_with_color(color, message, center=False, width=0):
         if not width:
             width = get_terminal_width()
 
-        formatted_message = formatted_message.center(width)
-
-    print(formatted_message)
+        print_on_center(formatted_message, width)
+    else:
+        print(formatted_message)
 
 
 def print_divider(width, character='-'):
+    """
+    Prints a divider in the terminal using the argument character.
+    """
     divider = character * width
     print(divider)
 
 
-def print_on_center(message, width):
-    centered_message = message.center(width)
-    print(centered_message)
-
-
 def print_on_left_and_right(left_message, right_message, width):
+    """
+    Print two message on the left and right side of the terminal.
+    """
     width_per_side = int(width / 2)
     left_message = '{message:{filler}<{n}}'.format(
         message=left_message,
@@ -96,11 +108,19 @@ def print_on_left_and_right(left_message, right_message, width):
 
 
 def filter_dictionary(dictionary, min_length, max_length):
+    """
+    Filter a list of words (dictionary) with min_length as the minimum count
+    of letters and max_length as the maximun count of letters.
+    """
     dictionary = [word for word in dictionary if len(word) >= min_length and len(word) <= max_length]
     return dictionary
 
 
 def sort_letters(word, return_as_string=True):
+    """
+    By default returns a string that is sorted alphabetically. If not returned
+    as a string, return as a List.
+    """
     sorted_letters = sorted(word)
     if return_as_string:
         sorted_letters = ''.join(sorted_letters)
@@ -108,6 +128,12 @@ def sort_letters(word, return_as_string=True):
 
 
 def is_a_sub_anagram(word, base_word):
+    """
+    Check if a word is a sub anagram of the base word.default=
+
+    Sub anagram simply means that the word can be created using the letters
+    of the base word.
+    """
     # direct substring
     if word in base_word:
         return True
@@ -119,3 +145,10 @@ def is_a_sub_anagram(word, base_word):
             is_a_sub_anagram = False
 
     return is_a_sub_anagram
+
+
+def clear_terminal():
+    """
+    Clears the terminal.
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')

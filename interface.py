@@ -10,8 +10,7 @@ from config import (
 )
 from engine import (
     seed_words, pick_words, combine_words, check_words, compute_word_score,
-    search_anagrams, compute_score, search_anagrams_of_words,
-    search_sub_anagrams_of_words, search_sub_anagrams_of_a_word_2
+    search_anagrams, compute_score, search_sub_anagrams_of_words
 )
 
 # seed dictionary
