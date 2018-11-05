@@ -2,7 +2,7 @@ import os
 from collections import Counter
 from random import randint
 
-from config import BCOLORS
+from config import BCOLORS, DICTIONARY_MIN_LETTERS, DICTIONARY_MAX_LETTERS
 
 
 def get_terminal_width():
@@ -107,7 +107,11 @@ def print_on_left_and_right(left_message, right_message, width):
     print('{}{}'.format(left_message, right_message))
 
 
-def filter_dictionary(dictionary, min_length, max_length):
+def filter_dictionary(
+    dictionary,
+    min_length=DICTIONARY_MIN_LETTERS,
+    max_length=DICTIONARY_MAX_LETTERS
+):
     """
     Filter a list of words (dictionary) with min_length as the minimum count
     of letters and max_length as the maximun count of letters.

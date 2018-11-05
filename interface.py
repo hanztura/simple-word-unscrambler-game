@@ -6,7 +6,7 @@ from common import (
 )
 from config import (
     DICTIONARY_FILENAME, GAME_MODES, NUMBER_OF_RETRIES, SCORING_MATRIX,
-    NUMBER_OF_RANDOM_WORDS, APP_NAME
+    NUMBER_OF_RANDOM_WORDS, APP_NAME, TEST, MIN_SCORE_TO_WIN
 )
 from engine import (
     seed_words, pick_words, combine_words, check_words, compute_word_score,
@@ -15,7 +15,7 @@ from engine import (
 
 # seed dictionary
 dictionary = seed_words(DICTIONARY_FILENAME)
-dictionary = filter_dictionary(dictionary, 3, 9)
+dictionary = filter_dictionary(dictionary)
 dictionary_max_index = len(dictionary) - 1
 terminal_width = get_terminal_width()
 
@@ -32,7 +32,7 @@ def print_game_results(valid_answers, invalid_answers):
         score = compute_word_score(user_answer, SCORING_MATRIX)
         total_score = total_score + score
 
-    print('Total Score: {}'.format(total_score))
+    print_with_color('blue', 'Total Score: {}'.format(total_score), True)
 
 
 def winner(message='You are a winner.'):
@@ -81,6 +81,10 @@ def mode_retry():
         anagrams_of_random_words,
         SCORING_MATRIX
     )
+    if TEST:
+        print(anagrams_of_random_words)
+        print(len(anagrams_of_random_words))
+        print(random_words)
 
     while is_continue:
         if user_answer_counter > 0:
@@ -96,10 +100,18 @@ def mode_retry():
         )
         print_on_left_and_right(left_message, right_message, terminal_width)
 
-        # print possible number valid words
-        print('Number of possible valid answers: {}'.format(
+        # print possible number valid words and minimum score to win
+        left_message = 'Number of possible valid answers: {}'.format(
             len(anagrams_of_random_words)
-        ))
+        )
+        right_message = 'Minimum Score to win: {}'.format(
+            MIN_SCORE_TO_WIN
+        )
+        if MIN_SCORE_TO_WIN <= 0 or MIN_SCORE_TO_WIN > max_possible_score:
+            right_message = 'Minimum Score to win: {}'.format(
+                'Disabled'
+            )
+        print_on_left_and_right(left_message, right_message, terminal_width)
 
         # print valid answers, and scores
         valid_answers_in_words = [answer['user_answer'] for answer in valid_answers]
@@ -171,7 +183,11 @@ def mode_retry():
         if invalid_count >= NUMBER_OF_RETRIES:
             is_continue = False
         else:
-            if current_score >= max_possible_score:
+            player_wins = current_score >= max_possible_score
+            if MIN_SCORE_TO_WIN > 0:
+                player_wins = player_wins or current_score >= MIN_SCORE_TO_WIN
+
+            if player_wins:
                 is_continue = False
                 is_game_over = False
             else:
@@ -246,6 +262,8 @@ def mode_retry_anagram():
                 anagrams,
                 SCORING_MATRIX
             )
+            if TEST:
+                print(anagrams)
 
             # get user answer. blank is not allowed
             for i in range(anagrams_count):
@@ -398,7 +416,7 @@ def go():
 
         if game_mode == 'exit':
             print_divider(terminal_width)
-            print('See you next time!')
+            print_with_color('blue', 'See you next time!', True)
         else:
             print_divider(terminal_width)
             message = 'Playing in: {}'.format(GAME_MODES.get_title(game_mode))

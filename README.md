@@ -24,12 +24,13 @@
         > This module contains the system variables. Like dictionary file name, number of retries allowed, and other configs.
 
 ## References
+    
+    1. [Stackoverflow](https://stackoverflow.com)
+        * https://stackoverflow.com/questions/287871/print-in-terminal-with-colors
+            > for the idea of printing with colors
 
-    * https://stackoverflow.com/questions/287871/print-in-terminal-with-colors
-        > for the idea of printing with colors
-
-    * https://stackoverflow.com/questions/44778/how-would-you-make-a-comma-separated-string-from-a-list-of-strings
-        > in transforming array of numbers into string
+        * https://stackoverflow.com/questions/44778/how-would-you-make-a-comma-separated-string-from-a-list-of-strings
+            > in transforming array of numbers into string
 
 ## Clone repo from github
 
